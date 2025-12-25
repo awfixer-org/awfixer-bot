@@ -5,15 +5,15 @@ inputs:
   python-version:
     description: Python version to use
     required: false
-    default: 3.13.8
+    default: 3.14.0
   uv-version:
     description: Uv version to install (empty = latest or from pyproject.toml)
     required: false
-    default: ''
+    default: ""
   enable-cache:
     description: Enable uv cache persistence
     required: false
-    default: 'true'
+    default: "true"
 runs:
   using: composite
   steps:
@@ -22,7 +22,7 @@ runs:
     # GitHub caches Python versions alongside the runner, making this faster than uv python install
     # Docs: https://github.com/actions/setup-python
     - name: Set up Python
-      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548  # v6
+      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6
       with:
         python-version: ${{ inputs.python-version }}
 
@@ -44,7 +44,7 @@ runs:
     # - python-version: Sets UV_PYTHON to ensure uv uses the correct Python version
     # - version: Empty defaults to latest or version from pyproject.toml/uv.toml
     - name: Install uv
-      uses: astral-sh/setup-uv@681c641aba71e4a1c380be3ab5e12ad51f415867  # v7
+      uses: astral-sh/setup-uv@681c641aba71e4a1c380be3ab5e12ad51f415867 # v7
       with:
         # Version: Empty means use latest or version from pyproject.toml/uv.toml
         # If pyproject.toml has [tool.uv] with required-version, that will be used
