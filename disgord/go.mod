@@ -7,7 +7,7 @@ require (
 	go.uber.org/atomic v1.10.0
 	golang.org/x/crypto v0.46.0
 	golang.org/x/net v0.48.0
-	k8s.io/gengo v0.0.0-20220307231824-4627b89bbf1b
+	k8s.io/gengo v0.0.0-20251215205346-5ee0d033ba5b
 	nhooyr.io/websocket v1.8.7
 )
 
