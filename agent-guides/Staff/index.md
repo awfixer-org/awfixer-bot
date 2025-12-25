@@ -1,0 +1,1 @@
+we currently use a set of json files stored in `/config/` to manage staff permissions in the bot. We need to integrate this into the rest of the bot. The way that the file works is it is an array of  owners, admins, staff, developers, moderators and so on. This is man

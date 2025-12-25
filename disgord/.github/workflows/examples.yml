@@ -1,0 +1,21 @@
+name: Examples
+on: [pull_request]
+jobs:
+  docs-examples:
+    name: Build examples
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        go: ['1.19']
+    steps:
+      - name: Setup Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: ${{ matrix.go }}
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: try building each example
+        run: ./.github/build-examples.sh

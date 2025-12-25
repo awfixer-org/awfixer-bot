@@ -1,0 +1,1 @@
+we are working on integrating the discord.py framework/wrapper into the bot itself so that we are less dependant on the developer of the framework and can keep working on new features to keep up with updates to the discord API and also to support some things that discord lets us do but are not publicly documented.
