@@ -1,0 +1,100 @@
+# Workspace configuration for multi-platform deployment
+
+[workspace]
+resolver = "2"
+members = [
+    # Core bot application (Railway deployment)
+    { path = ".", default-features = false },
+
+    # Dashboard frontend (Vercel deployment)
+    { path = "dashboard", default-features = false },
+]
+
+# Core bot package configuration
+[package]
+name = "awfixer-bot"
+version = "0.1.0"
+requires-python = ">=3.13.2,<3.14"
+description = "awfixer-bot is an all in one bot for the All Things Linux discord server."
+readme = "README.md"
+license = "GPL-3.0-or-later"
+authors = [{ name = "All Things Linux", email = "awfixer-bot@allthingslinux.org" }]
+
+# Platform-specific dependencies
+[dependencies]
+# Core bot dependencies (Railway)
+aiocache = ">=0.12.3"
+aiofiles = ">=24.1.0"
+discord-py = ">=2.6.0"
+loguru = ">=0.7.2"
+sqlmodel = ">=0.0.24"
+sqlalchemy = ">=2.0.14"
+alembic = ">=1.16.5"
+psycopg = { version = ">=3.2.9", features = ["binary", "pool"] }
+pydantic = ">=2.11.7"
+typer = ">=0.17.3"
+
+# Optional dependencies for different platforms
+[dependencies.optional]
+# Dashboard dependencies (Vercel)
+react = { version = "^19.2.0", platform = "node" }
+vite = { version = "^7.2.4", platform = "node" }
+
+# Documentation dependencies (Cloudflare)
+zensical = { version = "*", platform = "python" }
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.3.0",
+    "basedpyright==1.36.1",
+    "ruff>=0.12.4",
+]
+test = [
+    "pytest>=8.4.2",
+    "pytest-asyncio>=1.2.0",
+    "pytest-cov>=7.0.0",
+]
+
+# Build configurations for different platforms
+[tool.hatch.build.targets.sdist]
+packages = ["src/awfixer-bot", "scripts"]
+include = [
+    "src/awfixer-bot/**/*",
+    "scripts/**/*",
+    "config/**/*",
+    "assets/**/*",
+    "railway.toml",
+    "railway-entrypoint.sh",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/awfixer-bot", "scripts"]
+
+# Platform-specific build targets
+[[tool.hatch.build.targets.wheel]]
+platform = "linux"
+name = "awfixer-bot-linux"
+
+[[tool.hatch.build.targets.wheel]]
+platform = "win32"
+name = "awfixer-bot-windows"
+
+# Scripts for different deployment targets
+[project.scripts]
+# Bot commands (Railway)
+awfixer-bot = "scripts.awfixer-bot:main"
+db = "scripts.db:main"
+
+# Documentation commands (Cloudflare)
+docs = "scripts.docs:main"
+
+# Development commands
+dev = "scripts.dev:main"
+test = "scripts.test:main"
+config = "scripts.config:main"
+
+# URLs and metadata
+[project.urls]
+repository = "https://github.com/allthingslinux/awfixer-bot"
+documentation = "https://awfixer-bot.atl.dev"
+dashboard = "https://dashboard.awfixer-bot.atl.dev"
